@@ -37,6 +37,7 @@ private:
 	COleDateTime m_dtStartTime;
 	int m_minutes;
 	int m_nPomodoroTime;
+	int m_nPomodoroCount;
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	CProgressCtrl m_Progress;

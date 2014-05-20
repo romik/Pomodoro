@@ -104,6 +104,7 @@ BOOL CPomodoroDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	m_nPomodoroTime=25;
+	m_nPomodoroCount=0;
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -191,7 +192,9 @@ void CPomodoroDlg::OnTimer(UINT_PTR nIDEvent)
 		AfxMessageBox(_T("Pomodoro complete. Time to take a break"));
 		m_Progress.SetPos(0);
 		GetDlgItem(IDC_BTN_START)->EnableWindow(TRUE);
-
+		m_nPomodoroCount++;
+		strMessage.Format(_T("Pomodoros Completed:%d"), m_nPomodoroCount);
+		SetDlgItemText(IDC_STATIC_COMPLETED, strMessage);
 	}
 
 
