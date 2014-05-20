@@ -186,9 +186,9 @@ void CPomodoroDlg::OnTimer(UINT_PTR nIDEvent)
 	m_Progress.SetPos(m_minutes);
 	if(m_minutes>=m_nPomodoroTime)
 	{
-		AfxMessageBox(_T("Pomodoro complete. Time to take a break"));
-		SetDlgItemText(IDC_STATIC_DISPLAY, _T("Pomodoro Complete."));
 		KillTimer(1);
+		SetDlgItemText(IDC_STATIC_DISPLAY, _T("Pomodoro Complete."));
+		AfxMessageBox(_T("Pomodoro complete. Time to take a break"));
 		m_Progress.SetPos(0);
 		GetDlgItem(IDC_BTN_START)->EnableWindow(TRUE);
 
