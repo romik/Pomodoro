@@ -103,7 +103,7 @@ BOOL CPomodoroDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-	m_nPomodoroTime=3;
+	m_nPomodoroTime=25;
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
