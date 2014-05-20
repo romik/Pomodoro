@@ -57,6 +57,7 @@ CPomodoroDlg::CPomodoroDlg(CWnd* pParent /*=NULL*/)
 void CPomodoroDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_PROGRESS1, m_Progress);
 }
 
 BEGIN_MESSAGE_MAP(CPomodoroDlg, CDialogEx)
@@ -66,6 +67,7 @@ BEGIN_MESSAGE_MAP(CPomodoroDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CPomodoroDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDCANCEL, &CPomodoroDlg::OnBnClickedCancel)
 	ON_WM_TIMER()
+	ON_BN_CLICKED(IDC_BTN_START, &CPomodoroDlg::OnBnClickedBtnStart)
 END_MESSAGE_MAP()
 
 
@@ -101,7 +103,7 @@ BOOL CPomodoroDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-	m_nTimer=SetTimer(1,1000,0);
+	m_nPomodoroTime=3;
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -175,10 +177,38 @@ void CPomodoroDlg::OnBnClickedCancel()
 void CPomodoroDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: Add your message handler code here and/or call default
-	CString a;
-	a.Format(_T("%d"),nIDEvent);
-	TRACE(a);
-	//AfxMessageBox("t");
+	COleDateTime dtNow=COleDateTime::GetCurrentTime();
+	COleDateTimeSpan ts = dtNow-m_dtStartTime;
+	CString strMessage;
+	m_minutes=ts.GetMinutes();
+	strMessage.Format(_T("%02d:%02d"), ts.GetMinutes(), ts.GetSeconds());
+	SetDlgItemText(IDC_STATIC_DISPLAY2, strMessage);
+	m_Progress.SetPos(m_minutes);
+	if(m_minutes>=m_nPomodoroTime)
+	{
+		AfxMessageBox(_T("Pomodoro complete. Time to take a break"));
+		SetDlgItemText(IDC_STATIC_DISPLAY, _T("Pomodoro Complete."));
+		KillTimer(1);
+		m_Progress.SetPos(0);
+		GetDlgItem(IDC_BTN_START)->EnableWindow(TRUE);
+
+	}
+
+
 	CDialogEx::OnTimer(nIDEvent);
 }
 
+
+
+
+
+
+void CPomodoroDlg::OnBnClickedBtnStart()
+{
+	// TODO: Add your control notification handler code here
+	m_nTimer=SetTimer(1,1000,0);
+	m_dtStartTime=COleDateTime::GetCurrentTime();
+	m_Progress.SetRange(0,m_nPomodoroTime);
+	GetDlgItem(IDC_BTN_START)->EnableWindow(FALSE);
+	SetDlgItemText(IDC_STATIC_DISPLAY, _T("Time: "));
+}

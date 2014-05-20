@@ -34,7 +34,11 @@ public:
 	afx_msg void OnBnClickedCancel();
 private:
 	UINT_PTR m_nTimer;
-
+	COleDateTime m_dtStartTime;
+	int m_minutes;
+	int m_nPomodoroTime;
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	CProgressCtrl m_Progress;
+	afx_msg void OnBnClickedBtnStart();
 };
