@@ -38,6 +38,7 @@ private:
 	int m_minutes;
 	int m_nPomodoroTime;
 	int m_nPomodoroCount;
+	CFont m_Font;
 public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	CProgressCtrl m_Progress;
