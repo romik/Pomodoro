@@ -123,7 +123,7 @@ BOOL CPomodoroDlg::OnInitDialog()
 					DEFAULT_QUALITY,           // nQuality
 					DEFAULT_PITCH | FF_SWISS,  // nPitchAndFamily
 					_T("Arial"));                 // lpszFacename*/
-	 m_Font.CreatePointFont(500, _T("Helvetica"));
+	 m_Font.CreatePointFont(500, _T("Helvetica Light"));
 
 	GetDlgItem(IDC_STATIC_DISPLAY2)->SetFont(&m_Font);
 	return TRUE;  // return TRUE  unless you set the focus to a control
