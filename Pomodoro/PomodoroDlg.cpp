@@ -268,7 +268,10 @@ HBRUSH CPomodoroDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
 
 	// TODO:  Change any attributes of the DC here
-	pDC->SetBkColor(RGB(255,0,0));
+	if(pWnd->GetDlgCtrlID() == IDC_STATIC_DISPLAY2)
+		pDC->SetBkColor(RGB(255,94,58));
+	else if(pWnd->GetDlgCtrlID() == IDC_STATIC_COMPLETED)
+		pDC->SetBkColor(RGB(255,19,0));
 
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
