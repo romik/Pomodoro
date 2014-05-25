@@ -43,4 +43,6 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	CProgressCtrl m_Progress;
 	afx_msg void OnBnClickedBtnStart();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

@@ -68,6 +68,8 @@ BEGIN_MESSAGE_MAP(CPomodoroDlg, CDialogEx)
 	ON_BN_CLICKED(IDCANCEL, &CPomodoroDlg::OnBnClickedCancel)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDC_BTN_START, &CPomodoroDlg::OnBnClickedBtnStart)
+	ON_WM_ERASEBKGND()
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -235,4 +237,40 @@ void CPomodoroDlg::OnBnClickedBtnStart()
 	m_Progress.SetRange(0,m_nPomodoroTime);
 	GetDlgItem(IDC_BTN_START)->EnableWindow(FALSE);
 	SetDlgItemText(IDC_STATIC_DISPLAY, _T("Time: "));
+}
+
+
+BOOL CPomodoroDlg::OnEraseBkgnd(CDC* pDC)
+{
+	// TODO: Add your message handler code here and/or call default
+	CDialog::OnEraseBkgnd(pDC);
+
+	CRect rect;
+	GetClientRect(&rect);
+
+	int r1=255,g1=94,b1=58; //start color
+	int r2=255,g2=19,b2=0; //stop color
+
+	for(int i=0;i<rect.Height();i++)
+	{ 
+		int r,g,b;
+		r = r1 + (i * (r2-r1) / rect.Height());
+		g = g1 + (i * (g2-g1) / rect.Height());
+		b = b1 + (i * (b2-b1) / rect.Height());
+		pDC->FillSolidRect(0,i,rect.Width(),1,RGB(r,g,b));
+	}
+	return true;
+}
+
+
+HBRUSH CPomodoroDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  Change any attributes of the DC here
+	pDC->SetBkColor(RGB(255,0,0));
+
+	// TODO:  Return a different brush if the default is not desired
+	return hbr;
+
 }
